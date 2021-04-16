@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import React, {Component} from 'react'
 import './App.css';
+import List from './list';
+import Data from './data'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const dataList = Data;
+
+class App extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = { data: [...dataList] };
+  }
+  
+  handleClickClearAll = () => {
+    this.setState({
+      data: []
+    })
+  }
+  render() {
+    var {data} = this.state;
+    return (
+      <div className="App">
+      <div className="main">
+      <div className="container">
+        <h2>{data.length} birthday today</h2>
+        {
+          data.map((item,index) => <List key={index} name={item.name} age={item.age} imagePerson={item.image}/>)
+        }
+        <button onClick={this.handleClickClearAll}>Clear All</button>
+        </div>
+      </div>
+  </div>
+    );
+  }
 }
 
 export default App;
